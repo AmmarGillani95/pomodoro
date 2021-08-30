@@ -1,16 +1,24 @@
 import styled from "styled-components";
-
+import { useGlobalState, useUpdateGlobalState } from "../../state/GlobalState";
 const Switch = (props) => {
+  const { mode } = useGlobalState();
+  const dispatch = useUpdateGlobalState();
+
   return (
-    <ToggleWrapper {...props}>
+    <ToggleWrapper
+      {...props}
+      onChange={(e) => {
+        dispatch({ type: "mode", payload: e.target.id });
+      }}
+    >
       <ToggleInput type="radio" name="mode" id="pomodoro" defaultChecked />
       <ToggleLabel htmlFor="pomodoro">Pomodoro</ToggleLabel>
 
-      <ToggleInput type="radio" name="mode" id="short-break" />
-      <ToggleLabel htmlFor="short-break">Short Break</ToggleLabel>
+      <ToggleInput type="radio" name="mode" id="shortBreak" />
+      <ToggleLabel htmlFor="shortBreak">Short Break</ToggleLabel>
 
-      <ToggleInput type="radio" name="mode" id="long-break" />
-      <ToggleLabel htmlFor="long-break">Long Break</ToggleLabel>
+      <ToggleInput type="radio" name="mode" id="longBreak" />
+      <ToggleLabel htmlFor="longBreak">Long Break</ToggleLabel>
       <ToggleBackground />
     </ToggleWrapper>
   );
@@ -21,6 +29,8 @@ const ToggleWrapper = styled.form`
   flex-direction: row;
   position: relative;
   width: 100%;
+  max-width: ${373 / 16}rem;
+  margin: 0 auto;
   background-color: var(--color-primaryDark);
   isolation: isolate;
   padding: ${8 / 16}rem ${6 / 16}rem;
@@ -31,7 +41,7 @@ const ToggleLabel = styled.label`
   display: block;
   width: 33.33333%;
   height: ${48 / 16}rem;
-  font-family: var(--font-family-sans-serif);
+  font-family: var(--font-family);
   font-weight: var(--font-weight-bold);
   font-size: ${12 / 16}rem;
   line-height: ${12 / 16}rem;
@@ -78,7 +88,7 @@ const ToggleBackground = styled.span`
 `;
 
 const Button = styled.button`
-  font-family: var(--font-family-sans-serif);
+  font-family: var(--font-family);
   font-weight: var(--font-weight-bold);
   font-size: ${12 / 16}rem;
   line-height: ${12 / 16}rem;

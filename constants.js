@@ -14,6 +14,9 @@ export const COLORS = {
   -50px -50px 100px  hsla(234deg, 40% , 25% , 100%),
   50px 50px 100px  hsla(234deg, 45% , 13% , 100%)
   `,
+  red: "hsl(0deg 91% 71%)",
+  blue: "hsl(182deg 91% 71%)",
+  purple: "hsl(284deg 89% 74%)",
 };
 
 export const WEIGHTS = {
@@ -36,5 +39,8 @@ export const QUERIES = {
 
 export const FAMILIES = {
   sansSerif:
-    '"Kumbh Sans", Helvetica, "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", sans-serif',
+    '"Kumbh sans", Helvetica, "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", sans-serif',
+  mono: '"Space Mono","Menlo", Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace',
+  serif:
+    '"Roboto Slab","Iowan Old Style", "Apple Garamond", "Baskerville", "Times New Roman", "Droid Serif", "Times", "Source Serif Pro", "serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
 };

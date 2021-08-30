@@ -1,56 +1,56 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Switch from "../Switch";
+import { useGlobalState, useUpdateGlobalState } from "../../state/GlobalState";
 
 import TimerSVG from "../TimerSVG";
-
-const MODES = {
-  POMODORO: "pomodoro",
-  SHORTBREAK: "shortBreak",
-  LONGBREAK: "longBreak",
-};
+import { breakList } from "prelude-ls";
 
 const Timer = (props) => {
-  const startingMinutes = 1;
-  const [minutes, setMinutes] = useState(startingMinutes);
-  const [seconds, setSeconds] = useState(0);
-  const [pause, setPause] = useState(true);
-  const [mode, setMode] = useState(MODES.POMODORO);
-  const [timerEnd, setTimerEnd] = useState(false);
+  const {
+    startingMinutes,
+    startingSeconds,
+    pomodoro,
+    shortBreak,
+    longBreak,
+    minutes,
+    seconds,
+    hasStarted,
+    pause,
+    mode,
+    timerDidEnd,
+  } = useGlobalState();
+
+  const state = useGlobalState();
+  const dispatch = useUpdateGlobalState();
 
   let interval;
+
   useEffect(() => {
-    if (!pause) {
+    if (!pause && hasStarted) {
       interval = setInterval(() => {
         clearInterval(interval);
+
         if (seconds === 0) {
           if (minutes === 0) {
-            setTimerEnd(true);
+            dispatch({ type: "timerEnd" });
           } else {
-            setMinutes(minutes - 1);
-            setSeconds(59);
+            if (!pause && hasStarted) {
+              dispatch({ type: "decrementMinute" });
+            }
           }
         } else {
-          setSeconds(seconds - 1);
+          if (!pause && hasStarted) {
+            dispatch({ type: "decrementSeconds" });
+          }
         }
       }, 1000);
     }
-  }, [seconds, pause]);
 
-  useEffect(() => {
-    if (timerEnd) {
-      switch (mode) {
-        case MODES.POMODORO:
-          setMode(MODES.SHORTBREAK);
-          break;
-        case MODES.SHORTBREAK:
-          setMode(MODES.POMODORO);
-          break;
-        default:
-          setMode(MODES.POMODORO);
-      }
-    }
-  }, [timerEnd]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [seconds, minutes, pause, hasStarted]);
 
   const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
@@ -58,35 +58,60 @@ const Timer = (props) => {
   const handleClick = (e) => {
     e.preventDefault;
     clearInterval(interval);
-    setPause(!pause);
+    dispatch({
+      type: "pause",
+    });
+  };
+
+  const handleRestart = (e) => {
+    e.preventDefault;
+    clearInterval(interval);
+    dispatch({ type: "restart" });
+  };
+
+  const handleStart = (e) => {
+    e.preventDefault;
+    clearInterval(interval);
+    dispatch({ type: "start" });
   };
 
   const strokeWidth = 3;
   const radius = (100 - strokeWidth) / 2;
   const dashArray = 2 * 3.1415 * radius;
-  const dashOffset = 0;
-  const secondsToEnd = startingMinutes * 60;
+
+  const secondsToEnd = state[mode] * 60 + 1;
+
   const animated = pause ? "paused" : "running";
+  const buttonText = !hasStarted ? "start" : pause ? "resume" : "pause";
 
   return (
     <TimerWrapper {...props}>
       <TimerBackground>
         <Wrapper>
           <TimerSVG
-            dashOffset={dashOffset}
+            dashOffset={0}
             strokeWidth={strokeWidth}
             radius={radius}
             dashArray={dashArray}
             secondsToEnd={secondsToEnd}
             animated={animated}
+            timerDidEnd={timerDidEnd}
+            hasStarted={hasStarted}
           />
+
           <InteractiveWrapper>
             <Time>{`${timerMinutes}:${timerSeconds}`}</Time>
-            <Button onClick={handleClick}>{pause ? "Start" : "Pause"}</Button>
+
+            {!hasStarted && <Button onClick={handleStart}>start</Button>}
+            {hasStarted &&
+              (!timerDidEnd ? (
+                <Button onClick={handleClick}>{buttonText}</Button>
+              ) : (
+                <Button onClick={handleRestart}>restart</Button>
+              ))}
           </InteractiveWrapper>
         </Wrapper>
       </TimerBackground>
-      <h2>{mode}</h2>
     </TimerWrapper>
   );
 };
@@ -132,7 +157,7 @@ const InteractiveWrapper = styled.div`
 `;
 
 const Time = styled.h2`
-  font-family: var(--font-family-sans-serif);
+  font-family: var(--font-family);
   font-weight: var(--font-weight-bold);
   color: var(--color-secondary);
   font-size: ${80 / 16}rem;
@@ -143,7 +168,7 @@ const Time = styled.h2`
 `;
 
 const Button = styled.button`
-  font-family: var(--font-family-sans-serif);
+  font-family: var(--font-family);
   font-weight: var(--font-weight-bold);
   color: var(--color-secondary);
   font-size: ${14 / 16}rem;

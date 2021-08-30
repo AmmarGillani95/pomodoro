@@ -1,12 +1,21 @@
+import styled from "styled-components";
+
 import Container from "../components/Container";
 import Logo from "../components/Logo";
+import SettingsButton from "../components/Settings";
 import Spacer from "../components/Spacer";
 import Switch from "../components/Switch";
 import Timer from "../components/Timer";
 
+import { useGlobalState, useUpdateGlobalState } from "../state/GlobalState";
+import { FAMILIES } from "../constants";
+
 export default function Home() {
+  const { mode, font, color } = useGlobalState();
+  const dispatch = useUpdateGlobalState();
+
   return (
-    <Container>
+    <Container style={{ "--font-family": font, "--color-highlight": color }}>
       <Spacer
         axis="vertical"
         size={32}
@@ -33,6 +42,23 @@ export default function Home() {
         }}
       />
       <Timer style={{ zIndex: 1 }} />
+      <Spacer
+        axis="vertical"
+        size={79}
+        when={{
+          tabletAndUp: 144,
+          desktopAndUp: 63,
+        }}
+      />
+      <SettingsButton />
+      {/* <button
+        onClick={() => {
+          console.log("changeFont");
+          dispatch({ type: "changeFont", payload: FAMILIES.mono });
+        }}
+      >
+        Font
+      </button> */}
     </Container>
   );
 }

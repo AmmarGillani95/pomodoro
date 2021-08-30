@@ -14,6 +14,24 @@ const GlobalStyles = createGlobalStyle`
   font-display: fallback;
 }
 
+@font-face {
+  font-family: 'Roboto Slab';
+  src:
+    url('/fonts/roboto-slab-variable.woff') format('woff'),
+    url('/fonts/roboto-slab-variable.woff') format('woff-variations');
+  font-weight: 100 900;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  src:
+    url('/fonts/space-mono.woff2') format('woff'),
+    url('/fonts/space-mono.woff2') format('woff');
+  font-weight: 400;
+  font-display: fallback;
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -67,14 +85,20 @@ html {
   --color-primaryDark: ${COLORS.primaryDark};
   --color-secondary: ${COLORS.secondary};
   --color-highlight: ${COLORS.highlight};
+  --color-red: ${COLORS.red};
+  --color-blue: ${COLORS.blue};
+  --color-purple: ${COLORS.purple};
 
   --gradient: ${COLORS.backgroundGradient};
   --shadow: ${COLORS.shadow};
 
+  --font-weight: ${WEIGHTS.bold};
   --font-weight-normal: ${WEIGHTS.normal};
   --font-weight-bold: ${WEIGHTS.bold};
 
-  --font-family-sans-serif: ${FAMILIES.sansSerif};  
+  --font-family-sans-serif: ${FAMILIES.sansSerif};
+  --font-family-mono: ${FAMILIES.mono};
+  --font-family-serif: ${FAMILIES.serif};   
 }
 
 
@@ -88,7 +112,7 @@ html {
   
 }
 
-#root {
+#root, #__next  {
   /*
     Create a stacking context, without a z-index.
     This ensures that all portal content (modals and tooltips) will

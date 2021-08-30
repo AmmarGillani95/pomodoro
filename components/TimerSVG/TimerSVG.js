@@ -7,24 +7,46 @@ const TimerSVG = ({
   dashArray,
   secondsToEnd,
   animated,
+  timerDidEnd,
+  hasStarted,
 }) => {
-  console.log(secondsToEnd);
-  return (
-    <Wrapper
-      style={{
-        "--strokeWidth": strokeWidth,
-        "--radius": radius,
-        "--dasharray": dashArray,
-        "--dashOffset": dashOffset,
-        "--secondsToEnd": `${secondsToEnd}s`,
-        "--animated": animated,
-      }}
-    >
-      <SVG viewBox="0 0 100 100">
-        <Circle cx="50%" cy="50%" r={`${radius}px`} />
-      </SVG>
-    </Wrapper>
-  );
+  if (timerDidEnd) {
+    return (
+      <Wrapper
+        style={{
+          "--strokeWidth": strokeWidth,
+          "--radius": radius,
+          "--dasharray": dashOffset,
+          "--dashOffset": dashOffset,
+          "--secondsToEnd": `${secondsToEnd}s`,
+          "--animated": animated,
+        }}
+      >
+        <SVG viewBox="0 0 100 100">
+          <EmptyCircle cx="50%" cy="50%" r={`${radius}px`} />
+        </SVG>
+      </Wrapper>
+    );
+  } else if (!hasStarted) {
+    return "";
+  } else {
+    return (
+      <Wrapper
+        style={{
+          "--strokeWidth": strokeWidth,
+          "--radius": radius,
+          "--dasharray": dashArray,
+          "--dashOffset": dashOffset,
+          "--secondsToEnd": `${secondsToEnd}s`,
+          "--animated": animated,
+        }}
+      >
+        <SVG viewBox="0 0 100 100">
+          <Circle cx="50%" cy="50%" r={`${radius}px`} />
+        </SVG>
+      </Wrapper>
+    );
+  }
 };
 
 const Wrapper = styled.div`
@@ -49,11 +71,11 @@ const SVG = styled.svg`
 
 const progress = keyframes`
 from {
-  stroke-dashoffset: 0;
+  stroke-dashoffset: var(--dasharray);
 }
 
 to {
-  stroke-dashoffset: var(--dasharray);
+  stroke-dashoffset: var(--dashOffset);
 }
 `;
 
@@ -64,8 +86,22 @@ const Circle = styled.circle`
   stroke-linecap: round;
   stroke-dasharray: var(--dasharray);
   stroke-dashoffset: var(--dashOffset);
-  animation: ${progress} var(--secondsToEnd) linear;
+  animation: ${progress} var(--secondsToEnd) linear forwards;
   animation-play-state: var(--animated);
+`;
+
+const CompletedCircle = styled(Circle)`
+  stroke-dasharray: revert;
+  stroke-dashoffset: revert;
+  animation: revert;
+  animation-play-state: revert;
+`;
+
+const EmptyCircle = styled(Circle)`
+  stroke-dasharray: var(--dasharray);
+  stroke-dashoffset: 0;
+  animation: revert;
+  animation-play-state: revert;
 `;
 
 export default TimerSVG;

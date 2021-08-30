@@ -5,7 +5,7 @@ const Logo = (props) => {
 };
 
 const Heading = styled.h1`
-  font-family: var(--font-family-sans-serif);
+  font-family: var(--font-family);
   font-weight: var(--font-weight-bold);
   color: var(--color-secondary);
   font-size: ${24 / 16}rem;

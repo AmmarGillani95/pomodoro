@@ -1,10 +1,13 @@
 import GlobalStyles from "../components/GlobalStyles";
+import { GlobalStateProvider } from "../state/GlobalState";
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <GlobalStyles />
-      <Component {...pageProps} />
+      <GlobalStateProvider>
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </GlobalStateProvider>
     </>
   );
 }
