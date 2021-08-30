@@ -13,7 +13,7 @@ Users should be able to:
 
 ![](./screenshot.jpg)
 
-### Live Site: https://pomodoro-ammar.vercel.com
+### Live Site: https://pomodoro-ammar.vercel.app/
 
 ### Built with
 
