@@ -307,6 +307,7 @@ const CircleLabel = styled.label`
   font-size: ${15 / 16}rem;
   line-height: ${15 / 16}rem;
   opacity: 0.73;
+  cursor: pointer;
 `;
 
 const CircleColorLabel = styled(CircleLabel)`
