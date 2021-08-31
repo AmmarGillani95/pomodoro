@@ -51,6 +51,7 @@ const Increment = ({ amount, dispatch, type }) => {
             />
           </SVG>
         </Button>
+        <Spacer></Spacer>
         <Button
           onClick={() => {
             if (value > 5) {
@@ -105,6 +106,16 @@ const Input = styled.input`
   font-size: ${14 / 16}rem;
   line-height: ${14 / 16}rem;
   padding: ${4 / 16}rem;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -112,7 +123,11 @@ const ButtonWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: ${9 / 16}rem;
+  /* gap: ${9 / 16}rem; */
+`;
+
+const Spacer = styled.div`
+  height: ${9 / 16}rem;
 `;
 
 const Button = styled.button`

@@ -153,7 +153,6 @@ const InteractiveWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${12 / 16}rem;
 `;
 
 const Time = styled.h2`
@@ -165,6 +164,7 @@ const Time = styled.h2`
   text-align: center;
   letter-spacing: ${1 / 16}rem;
   z-index: 9;
+  margin-bottom: ${12 / 16}rem;
 `;
 
 const Button = styled.button`

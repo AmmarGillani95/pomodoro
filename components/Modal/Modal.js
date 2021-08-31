@@ -171,7 +171,7 @@ const Overlay = styled(DialogOverlay)`
   right: 0;
   bottom: 0;
   display: grid;
-  place-items: center;
+  place-content: center;
   background-color: hsl(234deg 47% 8% / 0.5);
 `;
 
@@ -238,7 +238,6 @@ const TimeSection = styled.div`
   padding-top: ${24 / 16}rem;
   display: flex;
   flex-direction: column;
-  gap: ${18 / 16}rem;
   align-items: center;
   &:not(:last-of-type) {
     border-bottom: solid 1px hsl(0deg 2% 89% / 1);
@@ -263,6 +262,7 @@ const SubHeading = styled.h3`
   letter-spacing: ${4.23077 / 16}rem;
   text-transform: uppercase;
   text-align: center;
+  margin-bottom: ${18 / 16}rem;
 `;
 
 const SubSection = styled.div`
@@ -291,7 +291,7 @@ const Mode = styled.p`
 const CircleWrapper = styled.form`
   display: flex;
   flex-direction: row;
-  gap: ${16 / 16}rem;
+  /* gap: ${16 / 16}rem; */
 `;
 
 const CircleLabel = styled.label`
@@ -308,6 +308,10 @@ const CircleLabel = styled.label`
   line-height: ${15 / 16}rem;
   opacity: 0.73;
   cursor: pointer;
+
+  &:not(:last-of-type) {
+    margin-right: ${16 / 16}rem;
+  }
 `;
 
 const CircleColorLabel = styled(CircleLabel)`

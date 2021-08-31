@@ -51,14 +51,6 @@ export default function Home() {
         }}
       />
       <SettingsButton />
-      {/* <button
-        onClick={() => {
-          console.log("changeFont");
-          dispatch({ type: "changeFont", payload: FAMILIES.mono });
-        }}
-      >
-        Font
-      </button> */}
     </Container>
   );
 }
