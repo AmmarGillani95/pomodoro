@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { useGlobalState, useUpdateGlobalState } from "../../state/GlobalState";
+import { QUERIES } from "../../constants";
+import { useUpdateGlobalState } from "../../state/GlobalState";
 const Switch = (props) => {
-  const { mode } = useGlobalState();
   const dispatch = useUpdateGlobalState();
 
   return (
@@ -56,6 +56,10 @@ const ToggleLabel = styled.label`
   z-index: 2;
   transition: color 200ms ease-in-out, opacity 200ms ease-in-out;
   cursor: pointer;
+  @media ${QUERIES.tabletAndUp} {
+    font-size: ${14 / 16}rem;
+    line-height: ${14 / 16}rem;
+  }
 `;
 
 const ToggleInput = styled.input`
@@ -85,18 +89,6 @@ const ToggleBackground = styled.span`
   height: ${48 / 16}rem;
   border-radius: ${26.5 / 16}rem;
   transition: transform 200ms ease-in-out;
-`;
-
-const Button = styled.button`
-  font-family: var(--font-family);
-  font-weight: var(--font-weight-bold);
-  font-size: ${12 / 16}rem;
-  line-height: ${12 / 16}rem;
-  text-transform: lowercase;
-  background-color: var(--color-highlight);
-  color: var(--color-primary);
-  padding: ${18 / 16}rem ${23 / 16}rem;
-  border-radius: ${26.5 / 16}rem;
 `;
 
 export default Switch;

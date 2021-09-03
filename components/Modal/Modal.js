@@ -31,7 +31,7 @@ const Modal = ({ isOpen, onDismiss }) => {
 
         <Wrapper>
           <TimeSection>
-            <SubHeading>Time (Minutes)</SubHeading>
+            <TimeHeading>Time (Minutes)</TimeHeading>
             <SubSection>
               <InputWrapper>
                 <Mode>pomodoro</Mode>
@@ -159,6 +159,7 @@ const Modal = ({ isOpen, onDismiss }) => {
             </CircleWrapper>
           </Section>
         </Wrapper>
+        <Apply onClick={onDismiss}>Apply</Apply>
       </Content>
     </Overlay>
   );
@@ -187,6 +188,7 @@ const Content = styled(DialogContent)`
     33.75rem
   );
   border-radius: ${15 / 16}rem;
+  position: relative;
 `;
 
 const HeadingWrapper = styled.div`
@@ -263,10 +265,25 @@ const SubHeading = styled.h3`
   text-transform: uppercase;
   text-align: center;
   margin-bottom: ${18 / 16}rem;
+  @media ${QUERIES.tabletAndUp} {
+    align-self: center;
+    margin-bottom: 0;
+  }
+`;
+
+const TimeHeading = styled(SubHeading)`
+  margin-bottom: ${18 / 16}rem;
+  @media ${QUERIES.tabletAndUp} {
+    align-self: start;
+  }
 `;
 
 const SubSection = styled.div`
   align-self: stretch;
+  @media ${QUERIES.tabletAndUp} {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -274,8 +291,21 @@ const InputWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
   &:not(:last-of-type) {
     margin-bottom: 8px;
+  }
+  @media ${QUERIES.tabletAndUp} {
+    max-width: ${140 / 16}rem;
+    flex-direction: column;
+    justify-content: revert;
+    margin-bottom: 0px;
+    align-items: revert;
+    margin-bottom: revert;
+    flex: 1;
+    &:not(:last-of-type) {
+      margin-bottom: 0px;
+    }
   }
 `;
 
@@ -286,6 +316,9 @@ const Mode = styled.p`
   font-size: ${12 / 16}rem;
   line-height: ${12 / 16}rem;
   opacity: 0.4;
+  @media ${QUERIES.tabletAndUp} {
+    margin-bottom: ${10 / 16}rem;
+  }
 `;
 
 const CircleWrapper = styled.form`
@@ -344,6 +377,22 @@ const CircleRadio = styled.input`
   }
 `;
 
-const Apply = styled.button``;
+const Apply = styled.button`
+  display: block;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
+  color: white;
+  font-size: ${16 / 16}rem;
+  line-height: ${16 / 16}rem;
+  padding: 0px ${47 / 16}rem;
+  padding-top: ${17 / 16}rem;
+  padding-bottom: ${20 / 16}rem;
+  background-color: var(--color-highlight);
+  border-radius: ${26.5 / 16}rem;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+`;
 
 export default Modal;

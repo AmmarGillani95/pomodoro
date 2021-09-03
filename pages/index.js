@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import Container from "../components/Container";
 import Logo from "../components/Logo";
 import SettingsButton from "../components/Settings";
@@ -7,12 +5,10 @@ import Spacer from "../components/Spacer";
 import Switch from "../components/Switch";
 import Timer from "../components/Timer";
 
-import { useGlobalState, useUpdateGlobalState } from "../state/GlobalState";
-import { FAMILIES } from "../constants";
+import { useGlobalState } from "../state/GlobalState";
 
 export default function Home() {
-  const { mode, font, color } = useGlobalState();
-  const dispatch = useUpdateGlobalState();
+  const { font, color } = useGlobalState();
 
   return (
     <Container style={{ "--font-family": font, "--color-highlight": color }}>

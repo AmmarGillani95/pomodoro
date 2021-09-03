@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
-import Switch from "../Switch";
+import { QUERIES } from "../../constants";
 import { useGlobalState, useUpdateGlobalState } from "../../state/GlobalState";
+import Spacer from "../Spacer";
 
 import TimerSVG from "../TimerSVG";
-import { breakList } from "prelude-ls";
 
 const Timer = (props) => {
   const {
@@ -101,6 +101,13 @@ const Timer = (props) => {
 
           <InteractiveWrapper>
             <Time>{`${timerMinutes}:${timerSeconds}`}</Time>
+            <Spacer
+              axis="vertical"
+              size={12}
+              when={{
+                tabletAndUp: 30,
+              }}
+            />
 
             {!hasStarted && <Button onClick={handleStart}>start</Button>}
             {hasStarted &&
@@ -120,7 +127,6 @@ const TimerWrapper = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: ${410 / 16}rem;
-  padding: 0 ${13.5 / 16}rem;
   isolation: isolate;
 `;
 
@@ -164,7 +170,12 @@ const Time = styled.h2`
   text-align: center;
   letter-spacing: ${1 / 16}rem;
   z-index: 9;
-  margin-bottom: ${12 / 16}rem;
+
+  @media ${QUERIES.tabletAndUp} {
+    margin-top: ${18 / 16}rem;
+    font-size: ${100 / 16}rem;
+    line-height: ${100 / 16}rem;
+  }
 `;
 
 const Button = styled.button`
@@ -178,6 +189,11 @@ const Button = styled.button`
   text-align: center;
   cursor: pointer;
   z-index: 10;
+  @media ${QUERIES.tabletAndUp} {
+    font-size: ${16 / 16}rem;
+    line-height: ${16 / 16}rem;
+    letter-spacing: ${15 / 16}rem;
+  }
 `;
 
 export default Timer;
